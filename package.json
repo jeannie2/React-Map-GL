@@ -16,6 +16,7 @@
     "@mui/material": "^5.14.4",
     "@supabase/supabase-js": "^2.31.0",
     "@yelysei/react-files-drag-and-drop": "^1.0.0",
+    "axios": "^1.4.0",
     "dotenv": "^16.3.1",
     "mapbox-gl": "^2.15.0",
     "process": "^0.11.10",

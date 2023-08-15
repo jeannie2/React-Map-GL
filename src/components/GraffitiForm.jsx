@@ -107,23 +107,23 @@ const GraffitiForm = () => {
       { errorFlag.errorStatus ? <ErrorComp error={errorFlag.errorMessage}/> : null }
       <form onSubmit={handleSubmit}>
         <label htmlFor="address">Address</label>
-        <input name="address" placeholder="address" type="text" ref={addressRef}/>
+        <input name="address" placeholder="address" type="text" required ref={addressRef}/>
         {/* value={address}  onChange={(e) => setAddress(e.target.value)}  */}
 
         <label htmlFor="zip">zip code</label>
-        <input name="zip" placeholder="zip code" type="number" ref={zipRef}/>
+        <input name="zip" placeholder="zip code" type="number" required ref={zipRef}/>
         {/* value={zip}  onChange={(e) => setZip(e.target.value)} */}
 
         <label htmlFor="borough">Borough</label>
-        <input name="borough" placeholder="borough" type="text" ref={boroughRef}/>
+        <input name="borough" placeholder="borough" type="text" required ref={boroughRef}/>
         {/* value={borough}  onChange={(e) => setBorough(e.target.value)}  */}
 
         <label htmlFor="longitude">Longitude</label>
-        <input  name="longitude" placeholder="e.g. -73.974" type="float" ref={longitudeRef}/>
+        <input  name="longitude" placeholder="e.g. -73.974" type="float" required ref={longitudeRef}/>
          {/* value={longitude} onChange={(e) => setLongitude(e.target.value)}  */}
 
         <label htmlFor="latitude">Latitude</label>
-        <input  name="latitude" placeholder="e.g. 40.781" type="float" ref={latitudeRef}/>
+        <input  name="latitude" placeholder="e.g. 40.781" type="float" required ref={latitudeRef}/>
         {/* value={latitude}  onChange={(e) => setLatitude(e.target.value)}  */}
 
         <button type="submit">SUBMIT</button>

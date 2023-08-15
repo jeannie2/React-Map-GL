@@ -46,7 +46,7 @@ const GraffitiForm = () => {
       // setErrorMsg("Please fill all the fields")
       setErrorFlag( {
         errorStatus: true,
-        errorMessage: "Please fill all the fields" })
+        errorMsg: "Please fill all the fields" })
         return
       }
     try {
@@ -54,7 +54,7 @@ const GraffitiForm = () => {
         // setErrorFlag("")
         setErrorFlag( {
           errorStatus: false,
-          errorMessage: ""
+          errorMsg: ""
         })
         setLoading(true)
         const { data, error } = await supabaseClient
@@ -86,7 +86,7 @@ const GraffitiForm = () => {
         // setErrorFlag("Error in adding contact details")
         setErrorFlag( {
           errorStatus: true,
-          errorMessage: "Error in adding contact details"
+          errorMsg: "Error in adding contact details"
         })
       }
       setLoading(false)
@@ -104,7 +104,7 @@ const GraffitiForm = () => {
 
   return (
     <>
-      { errorFlag.errorStatus ? <ErrorComp error={errorFlag.errorMessage}/> : null }
+      { errorFlag.errorStatus ? <ErrorComp error={errorFlag.errorMsg}/> : null }
       <form onSubmit={handleSubmit}>
         <label htmlFor="address">Address</label>
         <input name="address" placeholder="address" type="text" required ref={addressRef}/>
@@ -132,5 +132,6 @@ const GraffitiForm = () => {
   )
 }
 
-// style={{margin: '0 auto', display: "flex"}}
 export default GraffitiForm
+
+// style={{margin: '0 auto', display: "flex"}}

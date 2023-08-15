@@ -1,0 +1,233 @@
+// unecesary rerendering? console.log msgs
+
+// import * as React from 'react';
+import { useEffect, useState, useMemo } from 'react'
+import {Link} from 'react-router-dom'
+import Map, {Popup, Marker, FullscreenControl, ScaleControl, NavigationControl, GeolocateControl } from 'react-map-gl'
+import { supabaseClient } from '../supabaseClient.js'
+
+import Loading from '../components/Loading'
+import useAdminTips from '../useAdminTips'
+import useGraffiti from '../hooks/useGraffiti'
+import useDBRecords from '../hooks/useDBRecords'
+
+import Pin from '../components/Pin.jsx'
+import useGraffitiAPI from '../hooks/useGraffitiAPI'
+
+function MapPage() {
+  const [popupInfo, setPopupInfo] = useState(null);
+
+  // const { getAllRecords } = useGraffiti()
+  // const { data }  = getAllRecords()
+
+  const [loading, setLoading] = useState(false)
+  const [mango, setMango] = useState()
+  const [error, setError] = useState(null)
+
+  const [combined, setCombined] = useState('')
+
+  const [status, setStatus] = useState('');
+
+    // const { data, error, isLoading } = useGraffitiAPI()
+    const { loading: APILoading, error: APIError, data: APIdata} = useGraffitiAPI()// napkin.swr
+    const { loading: DBLoading, error: DBError, data: DBdata } = useDBRecords()
+
+    useEffect(() => {
+      if (APILoading || DBLoading) {
+        setLoading(true)
+      } else {
+        setLoading(false)
+      }
+    }, )
+
+    useEffect(()=> {
+      if(APIError || DBError) {
+        setError(APIError || DBError)
+      } else {
+        setError(null)
+      }
+    }, [APIError])
+
+
+    useEffect(() => {
+      if(APIdata && DBdata) {
+        const APIandDBdata = DBdata.concat(APIdata) // [allRecordsData, ...(napkinData?.data || [])]
+        setCombined(APIandDBdata)
+        console.log("bag")
+        console.log(combined)
+      }
+    }, [APIdata])
+
+        // useEffect(()=> {
+    //   if(APIdata) {
+    //     setStatus(APIdata);
+    //   }
+    // }, [APIdata])
+
+
+  // useEffect(() => {
+  //   getAllRecords()
+
+  //   if (data) { // useNapkin
+  //     setStatus(data);
+  //   }
+  // }, [data])
+
+  // useEffect(() => {
+  //   if(mango) {
+
+  //     let bag = mango.concat(data)
+  //     // let bag = [...mango, ...data]
+  //     setCombined(bag)
+  //     console.log("bag")
+  //     console.log(combined)
+  //     // setCombined([])
+  //   }
+  // }, [mango])
+
+
+  // console.log(mango)
+
+  // another way which works
+  const pins = useMemo(() => {
+    if (combined?.length === 0) {
+      console.log("no records returned from API and database")
+      // alert("no pins")
+    } else {
+      return combined?.map((city, index) => {
+        if (!city?.longitude || !city?.latitude) {
+          // handle missing longitude or latitude properties
+          return null;
+        }
+
+        return (
+          <Marker
+            key={`marker-${index}`}
+            longitude={parseFloat(city.longitude)} // data from db is float
+            latitude={parseFloat(city.latitude)} // data from db is float
+            anchor="bottom"
+            onClick={(e) => {
+              e.originalEvent.stopPropagation();
+              setPopupInfo(city);
+            }}
+          >
+            <Pin />
+          </Marker>
+        );
+      });
+    }
+  }, [combined]);
+
+  if (Loading) return <Loading /> // setLoading
+  if (error) return <div>There was an error fetching data</div>
+
+  return (
+    <>
+    <Map
+      mapboxAccessToken="pk.eyJ1IjoicGt3aWwiLCJhIjoiY2xoN3IydjA4MDE5czNwcGIwZmp2NWlvNyJ9.CWeoZE7F5bMINRGrbNNzDQ"
+      initialViewState={{
+        latitude: 40.61,
+        longitude: -73.99,
+        zoom: 10,
+        bearing: 0,
+        pitch: 0
+      }}
+      style={{width: '100%', height: '90vh'}}
+      mapStyle="mapbox://styles/pkwil/clhab6j5i00uk01qthcfqanu3"
+      // ><FullscreenControl /> </Map>
+      >
+
+        <GeolocateControl position="top-left" />
+        <FullscreenControl position="top-left" />
+        <NavigationControl position="top-left" />
+        <ScaleControl />
+
+        {pins}
+        {/* {!pins  ? <h1>NO PINs</h1> : <h1>Yes pins</h1>} */}
+
+        {popupInfo && (
+          <Popup
+            anchor="top"
+            longitude={popupInfo.longitude}
+            latitude={popupInfo.latitude}
+            onClose={() => setPopupInfo(null)}
+          >
+            <div id="popup">
+              <p><span>Record creation date:</span> <br/>{popupInfo.created_date} </p>
+              <p><span>Address: </span>{popupInfo.incident_address}, {popupInfo.incident_zip}</p>
+              <p><span>Borough: </span> {popupInfo.borough} </p>
+
+              <div>
+                <Link to={`/${popupInfo.unique_key}`}>Photo gallery</Link>
+              </div>
+                            <div>
+                <Link to={`/imageupload/${popupInfo.unique_key}`}>Upload image</Link>
+              </div>
+
+            </div>
+            {/* <img width="100%" src={popupInfo.image} /> */}
+          </Popup>
+        )}
+
+      </Map>
+    </>
+  );
+}
+
+export default MapPage
+
+// another way which works. but seems odd console.log in return statement
+// const pins = useMemo(() => {
+//   return combined?.length === 0 ? (
+//     console.log("no records")
+//   ) : (
+//     combined?.map((city, index) => (
+//       city?.longitude && city?.latitude && (
+//         <Marker
+//           key={`marker-${index}`}
+//           longitude={parseFloat(city.longitude)}
+//           latitude={parseFloat(city.latitude)}
+//           anchor="bottom"
+//           onClick={(e) => {
+//             e.originalEvent.stopPropagation();
+//             setPopupInfo(city);
+//           }}
+//         >
+//           <Pin />
+//         </Marker>
+//       )
+//     ))
+//   );
+// }, [combined]);
+
+// original code:
+// const pins = useMemo(
+//     () =>
+//     // dat?.map
+//     //  mango &&
+// {combined?.length === 0 ? (
+//           <div>
+//             <p >No records returned by API </p>
+//           </div>
+//         ) : (
+//       combined?.city?.map((city, index) => (
+//             // status?.city?.map((city, index) => ( //also works
+//         <Marker
+//           key={`marker-${index}`}
+//           longitude={(city.longitude)}
+//           latitude={(city.latitude)}
+//           anchor="bottom"
+//           onClick={e => {
+//             // If we let the click event propagates to the map, it will immediately close the popup
+//             // with `closeOnClick: true`
+//             e.originalEvent.stopPropagation();
+//             setPopupInfo(city);
+//           }}
+//         >
+//           <Pin />
+//         </Marker>
+//       )
+//       )),
+//     [combined] //combined. eslint-disable-line react-hooks/exhaustive-deps
+//         }
+//         );

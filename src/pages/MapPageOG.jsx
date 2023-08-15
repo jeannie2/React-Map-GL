@@ -1,63 +1,82 @@
+// unecesary rerendering? console.log msgs
+
+// import * as React from 'react';
 import { useEffect, useState, useMemo } from 'react'
 import {Link} from 'react-router-dom'
 import Map, {Popup, Marker, FullscreenControl, ScaleControl, NavigationControl, GeolocateControl } from 'react-map-gl'
 import { supabaseClient } from '../supabaseClient.js'
 
 import Loading from '../components/Loading'
+import useAdminTips from '../useAdminTips'
+import useGraffiti from '../hooks/useGraffiti'
+import useAllRecords from '../hooks/useGraffiti'
+
 import Pin from '../components/Pin.jsx'
 import useGraffitiAPI from '../hooks/useGraffitiAPI'
-// import useDBRecords from '../hooks/useDBRecords'
 
 function MapPage() {
   const [popupInfo, setPopupInfo] = useState(null);
+
+  // const { getAllRecords } = useGraffiti()
+  // const { data }  = getAllRecords()
+
   const [loading, setLoading] = useState(false)
-  const [ DBdata, setDBdata ]= useState()
+  const [mango, setMango] = useState()
   // const [error, setError] = useState(null)
 
   let [combined, setCombined] = useState('')
 
-  const { graffitiData, error, loading: isLoading } = useGraffitiAPI()
-  const [ status, setStatus] = useState('');
+  const { data, error, isLoading } = useGraffitiAPI()
+  const [status, setStatus] = useState('');
+
 
   useEffect(() => {
-    getDBRecords()
+    getAllRecords()
+    // let shoe = useAllRecords()
+    // setMango(shoe)
 
-    if (graffitiData) { // useNapkin
-      setStatus(graffitiData);
+    if (data) { // useNapkin
+      setStatus(data);
+      // console.log(Array.isArray(data))
+      // console.log(data)
     }
-  }, [graffitiData])
+  }, [data])
 
   useEffect(() => {
-    if(DBdata) {
-      console.log(DBdata)
-      let APIandDBdata = DBdata.concat(graffitiData)
-      // let APIandDBdata = [...mango, ...data]
-      setCombined(APIandDBdata)
-      console.log("API and DB data: ")
+    if(mango) {
+      // console.log(Array.isArray(mango))
+      // console.log(mango)
+      // console.log(data)
+      let bag = mango.concat(data)
+      // let bag = [...mango, ...data]
+      setCombined(bag)
+      console.log("bag")
       console.log(combined)
       // setCombined([])
     }
-  }, [DBdata])
+  }, [mango])
 
-  const getDBRecords = async () => {
+  const getAllRecords = async () => {
     try {
       setLoading(true)
       const { data, error } = await supabaseClient
         .from('graffiti')
         .select('*')    // useparams
       if (!error && data) {
-        setDBdata(data)
+        setMango(data)
         // console.log(data)
-        // return DBdata
+        // return data
       }
     } catch(error) {
       console.log(error)
     }
 
     setLoading(false)
-    // console.log("mango " + mango)
-    // return getAllRecords
+    console.log("mango " + mango)
+      // return getAllRecords
   }
+
+  console.log(mango)
 
   // another way which works
   const pins = useMemo(() => {
@@ -89,8 +108,8 @@ function MapPage() {
     }
   }, [combined]);
 
-  if (loading) return <Loading />
-  if (error) return <div>There was an error fetching data</div>
+  // if(isLoading) return <Loading />
+  //  if (error) return <div>There was an error fetching data</div>
 
   return (
     <>
@@ -131,7 +150,7 @@ function MapPage() {
               <div>
                 <Link to={`/${popupInfo.unique_key}`}>Photo gallery</Link>
               </div>
-              <div>
+                            <div>
                 <Link to={`/imageupload/${popupInfo.unique_key}`}>Upload image</Link>
               </div>
 
@@ -139,9 +158,66 @@ function MapPage() {
             {/* <img width="100%" src={popupInfo.image} /> */}
           </Popup>
         )}
+
       </Map>
     </>
   );
 }
 
 export default MapPage
+
+// another way which works. but seems odd console.log in return statement
+// const pins = useMemo(() => {
+//   return combined?.length === 0 ? (
+//     console.log("no records")
+//   ) : (
+//     combined?.map((city, index) => (
+//       city?.longitude && city?.latitude && (
+//         <Marker
+//           key={`marker-${index}`}
+//           longitude={parseFloat(city.longitude)}
+//           latitude={parseFloat(city.latitude)}
+//           anchor="bottom"
+//           onClick={(e) => {
+//             e.originalEvent.stopPropagation();
+//             setPopupInfo(city);
+//           }}
+//         >
+//           <Pin />
+//         </Marker>
+//       )
+//     ))
+//   );
+// }, [combined]);
+
+// original code:
+// const pins = useMemo(
+//     () =>
+//     // dat?.map
+//     //  mango &&
+// {combined?.length === 0 ? (
+//           <div>
+//             <p >No records returned by API </p>
+//           </div>
+//         ) : (
+//       combined?.city?.map((city, index) => (
+//             // status?.city?.map((city, index) => ( //also works
+//         <Marker
+//           key={`marker-${index}`}
+//           longitude={(city.longitude)}
+//           latitude={(city.latitude)}
+//           anchor="bottom"
+//           onClick={e => {
+//             // If we let the click event propagates to the map, it will immediately close the popup
+//             // with `closeOnClick: true`
+//             e.originalEvent.stopPropagation();
+//             setPopupInfo(city);
+//           }}
+//         >
+//           <Pin />
+//         </Marker>
+//       )
+//       )),
+//     [combined] //combined. eslint-disable-line react-hooks/exhaustive-deps
+//         }
+//         );

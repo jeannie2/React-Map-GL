@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import FilesDragAndDrop from '@yelysei/react-files-drag-and-drop'
 import { supabaseClient } from '../supabaseClient.js'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -8,6 +8,15 @@ const DragAndDrop = () => {
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
     const params = useParams();
+
+     useEffect(() => {
+    const cleanup = () => {
+      // Remove the event listener here
+    };
+
+    return cleanup;
+  }, []);
+
 
     const handleChange = async (file) => {
         try {

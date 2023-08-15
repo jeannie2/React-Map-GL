@@ -42,10 +42,10 @@ const Navbar = () => {
             sx={{ display: { sm: 'none' } }}
           >
             <List>
-              <ListItem button component={Link} to="/map">
+              <ListItem button component={Link} to="/">
                 <ListItemText className="list-item-text" primary="Home" />
               </ListItem>
-              <ListItem button component={Link} to="/new">
+              <ListItem button component={Link} to="/pins/new">
                 <ListItemText className="list-item-text" primary="New pin" />
               </ListItem>
               <ListItem button component={Link} to="https://data.cityofnewyork.us/Social-Services/graffiti/a26u-usa7?defaultRender=page">
@@ -55,10 +55,10 @@ const Navbar = () => {
           </Drawer>
           <Box sx={{ display: { xs: 'none', sm: 'block' }, whiteSpace: 'nowrap' }}>
             <List className="list-item" component="nav" sx={{ display: 'flex' }}>
-              <ListItem button component={Link} to="/map">
+              <ListItem button component={Link} to="/">
                 <ListItemText className="list-item-text" primary="Home" />
               </ListItem>
-              <ListItem button component={Link} to="/new">
+              <ListItem button component={Link} to="/pins/new">
                 <ListItemText className="list-item-text" primary="New pin" />
               </ListItem>
               <ListItem button component={Link} to="https://data.cityofnewyork.us/Social-Services/graffiti/a26u-usa7?defaultRender=page">

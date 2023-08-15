@@ -18,8 +18,8 @@ function App() {
     <Navbar />
     <Routes>
       <Route path="/" element={<MapPage />} />
+      <Route path="/pins/new" element={<FormPage />} />
       <Route path="/:id" element={<GraffitiShowPage /> } />
-      <Route path="/new" element={<FormPage />} />
       <Route path="/imageupload/:id" element={<ImageUploadPage /> } />
       <Route path="/image-submitted" element={<ImageSubmittedPage />} />
       <Route path="/form-submitted" element={<FormSubmittedPage />} />

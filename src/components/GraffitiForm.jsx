@@ -91,7 +91,7 @@ const GraffitiForm = () => {
       }
       setLoading(false)
       resetForm()
-      // navigate('/form-submitted')
+      navigate('/form-submitted')
   }
 
   const resetForm = () => {

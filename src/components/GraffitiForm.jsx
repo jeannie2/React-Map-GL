@@ -1,4 +1,3 @@
-// errors
 import { useRef, useState } from 'react'
 import { useNavigate } from "react-router-dom"
 import { supabaseClient } from '../supabaseClient.js'
@@ -10,7 +9,6 @@ const GraffitiForm = () => {
   const navigate = useNavigate()
 
   const [loading, setLoading] = useState(false)
-  const [errorMsg, setErrorMsg] = useState("")
   const [msg, setMsg] = useState("")
 
   const addressRef = useRef(null)
@@ -43,15 +41,12 @@ const GraffitiForm = () => {
       !longitudeRef.current?.value ||
       !latitudeRef.current?.value
     ) {
-      // setErrorMsg("Please fill all the fields")
       setErrorFlag( {
         errorStatus: true,
         errorMsg: "Please fill all the fields" })
         return
       }
     try {
-        // setErrorMsg("")
-        // setErrorFlag("")
         setErrorFlag( {
           errorStatus: false,
           errorMsg: ""
@@ -61,8 +56,8 @@ const GraffitiForm = () => {
           .from('graffiti')
           .insert([
             {
-            //  Array.from(formData.entries(()
-            //  .map((entry, index))
+              // Array.from(formData.entries(()
+              // .map((entry, index))
               incident_zip: inputObject.zip,
               incident_address: inputObject.address,
               borough: inputObject.borough,
@@ -82,8 +77,6 @@ const GraffitiForm = () => {
           // res.send("contact added successfully")
         }
       } catch (error) {
-        // setErrorMsg("Error in adding contact details")
-        // setErrorFlag("Error in adding contact details")
         setErrorFlag( {
           errorStatus: true,
           errorMsg: "Error in adding contact details"
@@ -133,5 +126,3 @@ const GraffitiForm = () => {
 }
 
 export default GraffitiForm
-
-// style={{margin: '0 auto', display: "flex"}}

@@ -9,20 +9,20 @@ import useGraffitiAPI from '../hooks/useGraffitiAPI'
 // import useDBRecords from '../hooks/useDBRecords'
 
 function MapPage() {
-  const [popupInfo, setPopupInfo] = useState(null);
-  const [loading, setLoading] = useState(false)
+  const [ popupInfo, setPopupInfo ] = useState(null);
+  const [ loading, setLoading ] = useState(false)
+  const [ error, setError ] = useState(null)
+
+  const { graffitiData, graffitiError, isLoading } = useGraffitiAPI()
   const [ DBdata, setDBdata ]= useState()
-  // const [error, setError] = useState(null)
+  const [ combined, setCombined ] = useState('')
 
-  let [combined, setCombined] = useState('')
-
-  const { graffitiData, error, loading: isLoading } = useGraffitiAPI()
   const [ status, setStatus] = useState('');
 
   useEffect(() => {
     getDBRecords()
 
-    if (graffitiData) { // useNapkin
+    if (graffitiData) {
       setStatus(graffitiData);
     }
   }, [graffitiData])
@@ -44,7 +44,7 @@ function MapPage() {
       setLoading(true)
       const { data, error } = await supabaseClient
         .from('graffiti')
-        .select('*')    // useparams
+        .select('*')  // useparams
       if (!error && data) {
         setDBdata(data)
         // console.log(data)
@@ -89,8 +89,8 @@ function MapPage() {
     }
   }, [combined]);
 
-  if (loading) return <Loading />
-  if (error) return <div>There was an error fetching data</div>
+  // if ( loading || isLoading ) return <Loading />
+  // if ( error || graffitiError ) return <div>There was an error fetching data</div>
 
   return (
     <>

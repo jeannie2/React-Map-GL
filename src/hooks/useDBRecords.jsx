@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import { useState } from 'react'
 import { supabaseClient } from '../supabaseClient.js'
 
   const useDBRecords = async () => {

@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import {useState} from 'react'
 import { supabaseClient } from '../supabaseClient.js'
 
 const useAllRecords = async () => {
@@ -18,7 +18,6 @@ const useAllRecords = async () => {
     }
     setLoading(false)
 
-    return getAllRecords
   }
 
 export default useAllRecords

@@ -1,6 +1,6 @@
 // unecesary rerendering? console.log msgs
 
-import * as React from 'react';
+// import * as React from 'react';
 import { useEffect, useState, useMemo } from 'react'
 import {Link} from 'react-router-dom'
 import Map, {Popup, Marker, FullscreenControl, ScaleControl, NavigationControl, GeolocateControl } from 'react-map-gl'

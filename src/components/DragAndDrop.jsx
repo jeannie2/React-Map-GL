@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import FilesDragAndDrop from '@yelysei/react-files-drag-and-drop'
 import { supabaseClient } from '../supabaseClient.js'
 import { useNavigate, useParams } from 'react-router-dom'

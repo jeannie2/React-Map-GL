@@ -1,9 +1,8 @@
-import React from 'react'
 
 function Footer () {
   return (
     <div id="footer">
-      <a href="https://github.com/jeannie2/mern-url-shortener-frontend">GitHub</a>
+      <a href="https://github.com/jeannie2/React-Map-GL">GitHub</a>
     </div>
   )
 }

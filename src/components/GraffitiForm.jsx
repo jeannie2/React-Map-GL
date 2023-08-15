@@ -1,5 +1,5 @@
 // errors
-import React, { useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { useNavigate } from "react-router-dom"
 import { supabaseClient } from '../supabaseClient.js'
 import { v4 as uuidv4 } from 'uuid';

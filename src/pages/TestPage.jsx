@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { supabaseClient } from '../supabaseClient.js'
 
 const TestPage = () => {

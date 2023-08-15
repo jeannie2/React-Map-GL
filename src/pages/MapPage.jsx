@@ -4,18 +4,17 @@ import * as React from 'react';
 import { useEffect, useState, useMemo } from 'react'
 import {Link} from 'react-router-dom'
 import Map, {Popup, Marker, FullscreenControl, ScaleControl, NavigationControl, GeolocateControl } from 'react-map-gl'
-import { supabaseClient } from './supabaseClient.js'
+import { supabaseClient } from '../supabaseClient.js'
 
-import Loading from './components/Loading'
-import useAdminTips from './useAdminTips'
-import useGraffiti from './hooks/useGraffiti'
-import useAllRecords from './hooks/useGraffiti'
+import Loading from '../components/Loading'
+import useAdminTips from '../useAdminTips'
+import useGraffiti from '../hooks/useGraffiti'
+import useAllRecords from '../hooks/useGraffiti'
 
-import Pin from './Pin.jsx'
-import useNapkin from './hooks/useNapkin'
+import Pin from '../components/Pin.jsx'
+import useNapkin from '../hooks/useNapkin'
 
-function MapComp() {
-  // console.log("THIS" + import.meta.env.VITE_UMBRELLA)
+function MapPage() {
   const [popupInfo, setPopupInfo] = useState(null);
 
   // const { getAllRecords } = useGraffiti()
@@ -108,8 +107,8 @@ function MapComp() {
     }
   }, [combined]);
 
-  // if (isLoading) return <Loading />
-  // if (error) return <div>There was an error fetching data</div>
+  // if(isLoading) return <Loading />
+  //  if (error) return <div>There was an error fetching data</div>
 
   return (
     <>
@@ -118,11 +117,11 @@ function MapComp() {
       initialViewState={{
         latitude: 40.61,
         longitude: -73.99,
-        zoom: 12,
+        zoom: 10,
         bearing: 0,
         pitch: 0
       }}
-      style={{width: '50%', height: '90vh'}}
+      style={{width: '100%', height: '90vh'}}
       mapStyle="mapbox://styles/pkwil/clhab6j5i00uk01qthcfqanu3"
       // ><FullscreenControl /> </Map>
       >
@@ -142,12 +141,18 @@ function MapComp() {
             latitude={popupInfo.latitude}
             onClose={() => setPopupInfo(null)}
           >
-            <div>
-              <p>{popupInfo.created_date} </p>
-              <p>{popupInfo.incident_address}, {popupInfo.incident_zip}</p>
-              <p>{popupInfo.borough} </p>
-              </div><Link to={`/imageupload/${popupInfo.unique_key}`}>Upload image</Link> <div>
-              </div><Link to={`/${popupInfo.unique_key}`}>Image gallery</Link><div>
+            <div id="popup">
+              <p><span>Record creation date:</span> <br/>{popupInfo.created_date} </p>
+              <p><span>Address: </span>{popupInfo.incident_address}, {popupInfo.incident_zip}</p>
+              <p><span>Borough: </span> {popupInfo.borough} </p>
+
+              <div>
+                <Link to={`/${popupInfo.unique_key}`}>Photo gallery</Link>
+              </div>
+                            <div>
+                <Link to={`/imageupload/${popupInfo.unique_key}`}>Upload image</Link>
+              </div>
+
             </div>
             {/* <img width="100%" src={popupInfo.image} /> */}
           </Popup>
@@ -158,7 +163,7 @@ function MapComp() {
   );
 }
 
-export default MapComp
+export default MapPage
 
 // another way which works. but seems odd console.log in return statement
 // const pins = useMemo(() => {

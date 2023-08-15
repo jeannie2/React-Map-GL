@@ -7,7 +7,7 @@ const ImageSubmittedPage = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      navigate('/map')
+      navigate('/')
     }, 5000)
   // eslint-disable-next-line
   }, [])

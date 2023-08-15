@@ -19,10 +19,10 @@ function App() {
     <Routes>
       <Route path="/" element={<MapPage />} />
       <Route path="/pins/new" element={<FormPage />} />
-      <Route path="/:id" element={<GraffitiShowPage /> } />
-      <Route path="/imageupload/:id" element={<ImageUploadPage /> } />
       <Route path="/image-submitted" element={<ImageSubmittedPage />} />
       <Route path="/form-submitted" element={<FormSubmittedPage />} />
+      <Route path="/imageupload/:id" element={<ImageUploadPage /> } />
+      <Route path="/:id" element={<GraffitiShowPage /> } />
     </Routes>
     <Footer />
     </BrowserRouter>

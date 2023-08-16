@@ -1,7 +1,17 @@
+import { useEffect } from 'react'
 import DragAndDrop from "../components/DragAndDrop"
 import Container from '@mui/material/Container'
 
 function ImageUploadPage() {
+
+
+  // useEffect(() => {
+  //   const cleanup = () => {
+  //     // Remove the event listener here
+  //   };
+
+  //   return cleanup;
+  // }, []);
 
   return (
     <>

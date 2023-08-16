@@ -9,13 +9,17 @@ const DragAndDrop = () => {
     const navigate = useNavigate()
     const params = useParams();
 
-     useEffect(() => {
+  useEffect(() => {
     const cleanup = () => {
-      // Remove the event listener here
+        // Remove the event listener here
     };
 
-    return cleanup;
-  }, []);
+    window.addEventListener("beforeunload", cleanup);
+
+    return () => {
+        window.removeEventListener("beforeunload", cleanup);
+    };
+}, []);
 
 
     const handleChange = async (file) => {

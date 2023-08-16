@@ -5,13 +5,13 @@ import Container from '@mui/material/Container'
 function ImageUploadPage() {
 
 
-  // useEffect(() => {
-  //   const cleanup = () => {
-  //     // Remove the event listener here
-  //   };
+  useEffect(() => {
+    const cleanup = () => {
+      // Remove the event listener here
+    };
 
-  //   return cleanup;
-  // }, []);
+    return cleanup;
+  }, []);
 
   return (
     <>

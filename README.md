@@ -12,4 +12,4 @@ View deployed project at: https://nyc-graffiti.vercel.app/
 
 # Sources
 
-Data from [NYC Open Data] (https://nycopendata.socrata.com/Social-Services/nyc-graffiti/8q69-4ke5/data)
+Data from [NYC Open Data](https://nycopendata.socrata.com/Social-Services/nyc-graffiti/8q69-4ke5/data)

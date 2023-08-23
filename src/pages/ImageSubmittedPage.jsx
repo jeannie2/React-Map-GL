@@ -15,7 +15,7 @@ const ImageSubmittedPage = () => {
   return (
     <>
       <Container id="image-submitted-page" sx={{textAlign: 'center'}}>
-        <h2>Your image has been submitted. Please check the map and view all images by clicking the marker.</h2>
+        <h2>Image submitted! Please check the marker and click the image gallery link.</h2>
       </Container>
     </>
   )

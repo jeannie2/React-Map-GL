@@ -112,11 +112,11 @@ const GraffitiForm = () => {
         {/* value={borough}  onChange={(e) => setBorough(e.target.value)}  */}
 
         <label htmlFor="longitude">Longitude</label>
-        <input  name="longitude" placeholder="e.g. -73.974" type="float" required ref={longitudeRef}/>
+        <input  name="longitude" placeholder="number between -180 and 180 (e.g. -73.974)" type="float" required ref={longitudeRef}/>
          {/* value={longitude} onChange={(e) => setLongitude(e.target.value)}  */}
 
         <label htmlFor="latitude">Latitude</label>
-        <input  name="latitude" placeholder="e.g. 40.781" type="float" required ref={latitudeRef}/>
+        <input  name="latitude" placeholder="number between -90 and 90 (e.g. 40.781)" type="float" required ref={latitudeRef}/>
         {/* value={latitude}  onChange={(e) => setLatitude(e.target.value)}  */}
 
         <button type="submit">SUBMIT</button>

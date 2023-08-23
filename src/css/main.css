@@ -42,63 +42,47 @@ html, body {
   max-width: 200px;
 } */
 
-#form-file-upload {
-  position: relative;
-  height: 16rem;
-  width: 28rem;
-  max-width: 100%;
-  text-align: center;
-}
-
-#input-file-upload {
-  display: none;
-}
-
-#label-file-upload {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-width: 2px;
-  border-radius: 1rem;
-  border-style: dashed;
-  border-color: #cbd5e1;
-  background-color: #f8fafc;
-}
-
-#label-file-upload.drag-active {
-  background-color: #ffffff;
-}
-
-.upload-button {
-  padding: 0.25rem;
-  cursor: pointer;
-  font-size: 1rem;
-  border: none;
-  font-family: 'Oswald', sans-serif;
-  background-color: transparent;
-}
-
-.upload-button:hover {
-  text-decoration-line: underline;
-}
-
-#drag-file-element {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 1rem;
-  top: 0px;
-  right: 0px;
-  bottom: 0px;
-  left: 0px;
-}
 
 #image-upload-page {
   /* font-family: 'Handjet', cursive; */
   /* font-family: 'Silkscreen', cursive; */
   font-family: 'Delicious Handrawn', cursive;
+  text-align: center;
 }
+
+#drop-area {
+  width: 50vw;
+  height: 60vh;
+  margin: auto;
+  margin-top: 10%;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, 20%);
+  border-style: dashed;
+  border-color: black;
+  border-width: 5px;
+  border-radius: 1rem;
+}
+
+#image-upload-page > h3 {
+  position: absolute;
+  top: 30%;
+  margin: auto;
+  left: 50%;
+  transform: translate(-50%, -30%);
+  color: black;
+}
+
+#drop-area-text {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  top: 0%
+}
+
 
 #form-submitted-page > h2, #image-submitted-page > h2 {
   /* font-family: 'Phudu', cursive; */

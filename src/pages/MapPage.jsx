@@ -5,6 +5,7 @@ import { supabaseClient } from '../supabaseClient.js'
 
 import Loading from '../components/Loading'
 import Pin from '../components/Pin.jsx'
+import Controls from "../components/Controls.jsx"
 import useGraffitiAPI from '../hooks/useGraffitiAPI'
 // import useDBRecords from '../hooks/useDBRecords'
 
@@ -140,6 +141,7 @@ function MapPage() {
           </Popup>
         )}
       </Map>
+      <Controls/>
     </>
   );
 }

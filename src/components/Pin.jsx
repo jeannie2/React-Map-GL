@@ -6,13 +6,15 @@ const pinStyle = {
   cursor: 'pointer',
   fill: 'black',
   stroke: '#0490c9',
-  strokeWidth: '1px'
+  strokeWidth: '1px',
   // shadow: '0 0 5px 6px rgba(255,0,96,0.8)'
 };
 
 const Pin = () => {
   return (
-    <svg height='20' viewBox="0 0 24 24" style={pinStyle}>
+    <svg height='20' viewBox="0 0 24 24" style={pinStyle} >
+    {/* <animateTransform attributeName="transform" type="rotate" from="0 18 18" to="360 18 18" begin="0s" dur="0.5s" repeatCount="3" /> */}
+    <animateTransform attributeName="transform" type="scale" from="0" to="1" begin="0s" dur="0.3s" repeatCount="1" />
       <path d={ICON} />
     </svg>
   );

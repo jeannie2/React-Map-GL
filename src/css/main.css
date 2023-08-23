@@ -42,6 +42,10 @@ html, body {
   max-width: 200px;
 } */
 
+svg > path:hover {
+  fill: #0490c9;
+}
+
 .control-panel {
   position: absolute;
   top: 30%;
